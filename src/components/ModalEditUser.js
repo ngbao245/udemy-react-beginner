@@ -1,20 +1,42 @@
 import { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { putUpdateUser } from "../services/UserService";
+import { toast } from "react-toastify";
 
 const ModalEditUser = (props) => {
-  const { show, handleClose, dataUserEdit } = props;
+  const { show, handleClose, dataUserEdit, handleEditUserFromModal } = props;
   const [name, setName] = useState("");
   const [job, setJob] = useState("");
 
-  const handleEditUser = () => {};
+  const handleEditUser = async () => {
+    let res = await putUpdateUser(name, job);
+
+    if (!name && !job) {
+      toast.error("Please input name and job");
+      return;
+    }
+
+    if (res && res.updatedAt) {
+      //success
+      handleEditUserFromModal({
+        id: dataUserEdit.id,
+        first_name: name,
+      });
+      handleClose();
+      setName("");
+      setJob("");
+      toast.success("User is updated!");
+    } else {
+      //error
+      toast.error("Error!");
+    }
+  };
 
   useEffect(() => {
     if (show) {
-        setName(dataUserEdit.first_name);
+      setName(dataUserEdit.first_name);
     }
   }, [dataUserEdit]);
-
-  console.log(dataUserEdit);
 
   return (
     <>

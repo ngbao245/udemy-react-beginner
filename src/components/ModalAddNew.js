@@ -10,7 +10,7 @@ const ModalAddNew = (props) => {
 
   const handleSaveUser = async () => {
     let res = await postCreateUser(name, job);
-    console.log(res);
+    // console.log(res);
 
     if (!name && !job) {
       toast.error("Please input name and job");
