@@ -3,21 +3,30 @@ import Table from "react-bootstrap/Table";
 import { fetchAllUser } from "../services/UserService";
 import ReactPaginate from "react-paginate";
 import ModalAddNew from "./ModalAddNew";
+import ModalEditUser from "./ModalEditUser";
 
 const TableUsers = (props) => {
   const [listUsers, setListUsers] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  const [isShowModelAddNew, setIsShowModelAddNew] = useState(false);
+  const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
+  const [isShowModalEdit, setIsShowModalEdit] = useState(false);
+  const [dataUserEdit, setDataUserEdit] = useState({});
 
   const handleClose = () => {
-    setIsShowModelAddNew(false);
+    setIsShowModalAddNew(false);
+    setIsShowModalEdit(false);
   };
 
   const handleUpdateTable = (user) => {
-    setListUsers([user, ...listUsers])
-  }
+    setListUsers([user, ...listUsers]);
+  };
+
+  const handleEditUser = (user) => {
+    setDataUserEdit(user);
+    setIsShowModalEdit(true);
+  };
 
   useEffect(() => {
     //call apis
@@ -45,7 +54,12 @@ const TableUsers = (props) => {
         <span>
           <b>List Users:</b>
         </span>
-        <button className="btn btn-success" onClick={() => setIsShowModelAddNew(true)}>Add new user</button>
+        <button
+          className="btn btn-success"
+          onClick={() => setIsShowModalAddNew(true)}
+        >
+          Add new user
+        </button>
       </div>
 
       <Table striped bordered hover>
@@ -55,6 +69,7 @@ const TableUsers = (props) => {
             <th>Email</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -67,6 +82,17 @@ const TableUsers = (props) => {
                   <td>{item.email}</td>
                   <td>{item.first_name}</td>
                   <td>{item.last_name}</td>
+                  <td>
+                    <button
+                      className="btn btn-warning mx-3"
+                      onClick={() => {
+                        handleEditUser(item);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button className="btn btn-danger mx-3">Delete</button>
+                  </td>
                 </tr>
               );
             })}
@@ -93,7 +119,17 @@ const TableUsers = (props) => {
         activeClassName="active"
       />
 
-      <ModalAddNew show={isShowModelAddNew} handleClose={handleClose} handleUpdateTable={handleUpdateTable} />
+      <ModalAddNew
+        show={isShowModalAddNew}
+        handleClose={handleClose}
+        handleUpdateTable={handleUpdateTable}
+      />
+
+      <ModalEditUser
+        show={isShowModalEdit}
+        dataUserEdit={dataUserEdit}
+        handleClose={handleClose}
+      />
     </>
   );
 };
