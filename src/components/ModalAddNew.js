@@ -23,7 +23,11 @@ const ModalAddNew = (props) => {
       setName("");
       setJob("");
       toast.success("A User is create successed!");
-      handleUpdateTable({first_name: name, id: res.id, email: name + "@gmail.com"});
+      handleUpdateTable({
+        first_name: name,
+        id: res.id,
+        email: name + "@gmail.com",
+      });
     } else {
       //error
       toast.error("Error!");
@@ -32,7 +36,12 @@ const ModalAddNew = (props) => {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Add new user</Modal.Title>
         </Modal.Header>
