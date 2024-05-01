@@ -37,6 +37,12 @@ const TableUsers = (props) => {
     setListUsers(cloneListUser);
   };
 
+  const handleDeleteUserFromModal = (user) => {
+    let cloneListUser = _.cloneDeep(listUsers);
+    cloneListUser = cloneListUser.filter(item => item.id !== user.id);
+    setListUsers(cloneListUser);
+  };
+
   useEffect(() => {
     //call apis
     getUsers(1);
@@ -53,7 +59,6 @@ const TableUsers = (props) => {
   };
 
   const handlePageClick = (event) => {
-    // console.log("event lib: ", event);
     getUsers(+event.selected + 1);
   };
 
@@ -162,6 +167,7 @@ const TableUsers = (props) => {
         show={isShowModalConfirm}
         handleClose={handleClose}
         dataUserDelete={dataUserDelete}
+        handleDeleteUserFromModal={handleDeleteUserFromModal}
       />
     </>
   );
