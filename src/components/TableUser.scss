@@ -7,3 +7,16 @@
     padding: 0 2px;
   }
 }
+
+.app-container {
+  .add-new {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .group-btns {
+    display: flex;
+    gap: 10px;
+  }
+}
