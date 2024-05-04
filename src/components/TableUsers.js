@@ -27,6 +27,8 @@ const TableUsers = (props) => {
 
   const [searchKeyWord, setSearchKeyWord] = useState("");
 
+  const [dataExport, setDataExport] = useState([]);
+
   const handleClose = () => {
     setIsShowModalAddNew(false);
     setIsShowModalEdit(false);
@@ -102,12 +104,22 @@ const TableUsers = (props) => {
     }
   }, 500);
 
-  const csvData = [
-    ["firstname", "lastname", "email"],
-    ["Ahmed", "Tomi", "ah@smthing.co.com"],
-    ["Raed", "Labes", "rl@smthing.co.com"],
-    ["Yezzi", "Min l3b", "ymin@cocococo.com"],
-  ];
+  const getUsersExport = (event, done) => {
+    let result = [];
+    if (listUsers && listUsers.length > 0) {
+      result.push(["Id", "Email", "First Name", "Last Name"]);
+      listUsers.map((item, index) => {
+        let arr = [];
+        arr[0] = item.id;
+        arr[1] = item.email;
+        arr[2] = item.first_name;
+        arr[3] = item.last_name;
+        result.push(arr);
+      });
+      setDataExport(result);
+      done();
+    }
+  };
 
   return (
     <>
@@ -124,9 +136,11 @@ const TableUsers = (props) => {
             <input id="import" type="file" hidden />
           </div>
           <CSVLink
-            data={csvData}
             filename={"user_export.csv"}
             className="btn btn-success"
+            data={dataExport}
+            asyncOnClick={true}
+            onClick={getUsersExport} // <=> onClick={(event, done) => getUsersExport(event, done)}  thư viện đã hỗ trợ
           >
             <i className="fa-solid fa-file-export px-1"></i>
             <span className="px-1">Export</span>
