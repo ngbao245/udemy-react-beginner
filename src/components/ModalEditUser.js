@@ -27,7 +27,6 @@ const ModalEditUser = (props) => {
       setJob("");
       toast.success("User is updated!");
     } else {
-      //error
       toast.error("Error!");
     }
   };
@@ -36,7 +35,7 @@ const ModalEditUser = (props) => {
     if (show) {
       setName(dataUserEdit.first_name);
     }
-  }, [dataUserEdit]);
+  }, [dataUserEdit, show]);
 
   return (
     <>
