@@ -10,16 +10,15 @@ const Header = (props) => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/">
+        <NavLink className="navbar-brand" to="/">
           <img
             src={logoApp}
             width="30"
             height="30"
             className="d-inline-block align-top"
-            alt="React Bootstrap Logo"
           />
           <span> React-Udemy-Intern-Course</span>
-        </Navbar.Brand>
+        </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
