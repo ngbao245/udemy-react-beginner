@@ -3,6 +3,8 @@ import "./App.scss";
 import Header from "./components/Header";
 import TableUsers from "./components/TableUsers";
 import { Bounce, ToastContainer } from "react-toastify";
+import Home from "./components/Home";
+import { Routes, Route, Link } from "react-router-dom";
 
 function App() {
   return (
@@ -10,7 +12,10 @@ function App() {
       <div className="app-container">
         <Header />
         <Container>
-          <TableUsers />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/users" element={<TableUsers />} />
+          </Routes>
         </Container>
       </div>
 
