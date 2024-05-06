@@ -1,0 +1,88 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+
+  .title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 16px auto;
+  }
+
+  .text {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+
+  input {
+    border-radius: 2px;
+    background-color: #1618230f;
+    border: 1px solid #1618231f;
+    padding-inline-start: 12px;
+    color: #161823;
+    outline: none;
+    font-size: 16px;
+    height: 44px;
+    caret-color: #fe2c55;
+    padding-inline-end: unset;
+    margin-bottom: 9px;
+    width: 100%;
+
+    &:hover {
+      background-color: #dedede;
+    }
+  }
+
+  button {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  button:not(.empty) {
+    background: #fe2c55;
+  }
+
+  button:not(.empty):hover {
+    background: #ef2950;
+  }
+
+  button:not(.empty):active {
+    background: #df274b;
+  }
+
+  .empty {
+    color: #16182357;
+    background: #1618230f;
+    cursor: not-allowed;
+    border: none;
+  }
+
+  .back {
+    text-align: center;
+    font-weight: 600;
+    margin-top: 40px;
+    cursor: pointer;
+  }
+
+  .input-password {
+    position: relative;
+    i {
+      position: absolute;
+      top: 15px;
+      right: 10px;
+      opacity: 0.5;
+    }
+  }
+}
+
+::-ms-reveal {
+  display: none;
+}
