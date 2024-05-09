@@ -1,9 +1,7 @@
 import { Container } from "react-bootstrap";
 import "./App.scss";
 import Header from "./components/Header";
-
 import { Bounce, ToastContainer } from "react-toastify";
-
 import { useContext, useEffect } from "react";
 import { UserContext } from "./context/UserContext";
 import AppRoutes from "./Routes/AppRoutes";
@@ -20,6 +18,7 @@ function App() {
         localStorage.getItem("token")
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

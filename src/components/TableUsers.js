@@ -168,11 +168,11 @@ const TableUsers = (props) => {
 
   return (
     <>
-      <div className="my-3 add-new">
+      <div className="my-3 add-new d-sm-flex">
         <span>
           <b>List Users:</b>
         </span>
-        <div className="group-btns">
+        <div className="group-btns mt-sm-0 mt-2">
           <div>
             <label htmlFor="import" className="btn btn-dark">
               <i className="fa-solid fa-file-import px-1"></i>
@@ -206,7 +206,7 @@ const TableUsers = (props) => {
         </div>
       </div>
 
-      <div className="col-4 my-3">
+      <div className="col-12 col-sm-4 my-3">
         <input
           className="form-control"
           placeholder="search user by email..."
@@ -214,120 +214,124 @@ const TableUsers = (props) => {
         />
       </div>
 
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>
-              <div className="sort-header">
-                <span>ID</span>
-                <span>
-                  {sortBy === "desc" ? (
-                    <i
-                      className="fa-solid fa-sort"
-                      onClick={() => handleSort("asc", "id")}
-                    ></i>
-                  ) : (
-                    <i
-                      className="fa-solid fa-sort"
-                      onClick={() => handleSort("desc", "id")}
-                    ></i>
-                  )}
-                </span>
-              </div>
-            </th>
-            <th>
-              <div className="sort-header">
-                <span>Email</span>
-                <span>
-                  {sortBy === "desc" ? (
-                    <i
-                      className="fa-solid fa-sort"
-                      onClick={() => handleSort("asc", "email")}
-                    ></i>
-                  ) : (
-                    <i
-                      className="fa-solid fa-sort"
-                      onClick={() => handleSort("desc", "email")}
-                    ></i>
-                  )}
-                </span>
-              </div>
-            </th>
-            <th>
-              <div className="sort-header">
-                <span>First Name</span>
-                <span>
-                  {sortBy === "desc" ? (
-                    <i
-                      className="fa-solid fa-sort"
-                      onClick={() => handleSort("asc", "first_name")}
-                    ></i>
-                  ) : (
-                    <i
-                      className="fa-solid fa-sort"
-                      onClick={() => handleSort("desc", "first_name")}
-                    ></i>
-                  )}
-                </span>
-              </div>
-            </th>
-            <th>Last Name</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {listUsers &&
-            listUsers.length > 0 &&
-            listUsers.map((item, index) => {
-              return (
-                <tr key={`users-${index}`}>
-                  <td>{item.id}</td>
-                  <td>{item.email}</td>
-                  <td>{item.first_name}</td>
-                  <td>{item.last_name}</td>
-                  <td>
-                    <button
-                      className="btn btn-warning mx-3"
-                      onClick={() => {
-                        handleEditUser(item);
-                      }}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="btn btn-danger mx-3"
-                      onClick={() => {
-                        handleDelele(item);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </Table>
+      <div className="customize-table">
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>
+                <div className="sort-header">
+                  <span>ID</span>
+                  <span>
+                    {sortBy === "desc" ? (
+                      <i
+                        className="fa-solid fa-sort"
+                        onClick={() => handleSort("asc", "id")}
+                      ></i>
+                    ) : (
+                      <i
+                        className="fa-solid fa-sort"
+                        onClick={() => handleSort("desc", "id")}
+                      ></i>
+                    )}
+                  </span>
+                </div>
+              </th>
+              <th>
+                <div className="sort-header">
+                  <span>Email</span>
+                  <span>
+                    {sortBy === "desc" ? (
+                      <i
+                        className="fa-solid fa-sort"
+                        onClick={() => handleSort("asc", "email")}
+                      ></i>
+                    ) : (
+                      <i
+                        className="fa-solid fa-sort"
+                        onClick={() => handleSort("desc", "email")}
+                      ></i>
+                    )}
+                  </span>
+                </div>
+              </th>
+              <th>
+                <div className="sort-header">
+                  <span>First Name</span>
+                  <span>
+                    {sortBy === "desc" ? (
+                      <i
+                        className="fa-solid fa-sort"
+                        onClick={() => handleSort("asc", "first_name")}
+                      ></i>
+                    ) : (
+                      <i
+                        className="fa-solid fa-sort"
+                        onClick={() => handleSort("desc", "first_name")}
+                      ></i>
+                    )}
+                  </span>
+                </div>
+              </th>
+              <th>Last Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listUsers &&
+              listUsers.length > 0 &&
+              listUsers.map((item, index) => {
+                return (
+                  <tr key={`users-${index}`}>
+                    <td>{item.id}</td>
+                    <td>{item.email}</td>
+                    <td>{item.first_name}</td>
+                    <td>{item.last_name}</td>
+                    <td>
+                      <button
+                        className="btn btn-warning mx-3"
+                        onClick={() => {
+                          handleEditUser(item);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn btn-danger mx-3"
+                        onClick={() => {
+                          handleDelele(item);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </Table>
+      </div>
 
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
-        pageCount={totalPages}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-        pageClassName="page-item"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
-        containerClassName="pagination"
-        activeClassName="active"
-      />
+      <div className="d-flex justify-content-sm-start justify-content-center">
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={totalPages}
+          previousLabel="< previous"
+          renderOnZeroPageCount={null}
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          activeClassName="active"
+        />
+      </div>
 
       <ModalAddNew
         show={isShowModalAddNew}

@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "../components/Home";
 import Login from "../components/Login";
 import PrivateRoute from "./PrivateRoute";
+import NotFoundRoute from "./NotFoundRoute";
 import TableUsers from "../components/TableUsers";
 
 const AppRoutes = () => {
@@ -18,6 +19,7 @@ const AppRoutes = () => {
             </PrivateRoute>
           }
         />
+        <Route path="*" element={<NotFoundRoute />} />
       </Routes>
     </>
   );

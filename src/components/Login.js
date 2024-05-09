@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import "./Login.scss";
 import { loginApi } from "../services/UserService";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 const Login = () => {
@@ -30,7 +30,7 @@ const Login = () => {
     }
 
     setIsLoading(true);
-    let res = await loginApi(email, password);
+    let res = await loginApi(email.trim(), password.trim());
     if (res && res.token) {
       loginContext(email, res.token);
       navigate("/");
@@ -39,11 +39,17 @@ const Login = () => {
         toast.error(res.data.error);
       }
     }
-    setIsLoading(false);
+    // setIsLoading(false);
   };
 
   const handleGoBack = () => {
     navigate("/");
+  };
+
+  const handlePressEnter = (event) => {
+    if (event && event.key === "Enter") {
+      handleLogin();
+    }
   };
 
   return (
@@ -56,6 +62,7 @@ const Login = () => {
           placeholder="Email or Username"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
+          onKeyDown={(event) => handlePressEnter(event)}
         />
         <div className="input-password">
           <input
@@ -63,6 +70,7 @@ const Login = () => {
             placeholder="Password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
+            onKeyDown={(event) => handlePressEnter(event)}
           />
           <i
             className={
