@@ -1,10 +1,10 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
 import { Alert } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 const PrivateRoute = (props) => {
-  const { user } = useContext(UserContext);
+
+  const user = useSelector(state => state.user.account)
 
   const navigate = useNavigate();
 

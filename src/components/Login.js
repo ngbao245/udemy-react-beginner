@@ -1,45 +1,35 @@
-import { useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Login.scss";
-import { loginApi } from "../services/UserService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
+import { useDispatch, useSelector } from "react-redux";
+import { handleLoginRedux } from "../redux/actions/userAction";
 
 const Login = () => {
-  const { loginContext } = useContext(UserContext);
-
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(true);
 
-  const [isloading, setIsLoading] = useState(false);
+  const isLoading = useSelector((state) => state.user.isLoading);
+  const account = useSelector((state) => state.user.account);
 
-  // useEffect(() => {
-  //   let token = localStorage.getItem("token");
-  //   if (token) {
-  //     navigate("/");
-  //   }
-  // }, []);
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (account && account.auth === true) {
+      navigate("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [account]);
 
   const handleLogin = async () => {
     if (!(email && password)) {
       toast.error("Email and Password are required!");
       return;
     }
-
-    setIsLoading(true);
-    let res = await loginApi(email.trim(), password.trim());
-    if (res && res.token) {
-      loginContext(email, res.token);
-      navigate("/");
-    } else {
-      if (res && res.status === 400) {
-        toast.error(res.data.error);
-      }
-    }
-    // setIsLoading(false);
+    dispatch(handleLoginRedux(email, password));
   };
 
   const handleGoBack = () => {
@@ -87,7 +77,7 @@ const Login = () => {
           disabled={!(email && password)}
           onClick={() => handleLogin()}
         >
-          {isloading ? <i className="fas fa-spinner fa-spin"></i> : "Log in"}
+          {isLoading ? <i className="fas fa-spinner fa-spin"></i> : "Log in"}
         </button>
         <div className="back">
           <i className="fa-solid fa-angle-left"></i>
